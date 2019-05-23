@@ -1,4 +1,5 @@
 /* 
+// https://github.com/DanielRBowen/VuePdfJs
 // Original source from: https://github.com/rossta/vue-pdfjs-demo
 
     <div id="app">
@@ -147,17 +148,17 @@ Vue.component('vue-pdfjs', {
     },
     data() {
         return {
-            scale: undefined,
-            optimalScale: undefined,
-            fit: undefined,
+            scale: 1.0,
+            optimalScale: 1.0,
+            fit: '1',
             currentPage: 1,
-            pageCount: undefined,
+            pageCount: 1,
             isPreviewEnabled: false
         };
     },
     methods: {
-        onDocumentRendered() {
-            this.$emit('document-errored', 'Yup');
+        onDocumentRendered(e) {
+            this.$emit('document-errored', e);
         },
 
         onDocumentErrored(e) {
@@ -246,6 +247,7 @@ Vue.component('PDFZoom', {
     props: {
         scale: {
             type: Number,
+            default: 1.0
         },
         increment: {
             type: Number,

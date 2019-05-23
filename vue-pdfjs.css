@@ -1,4 +1,6 @@
-header {
+/* https://github.com/DanielRBowen/VuePdfJs */
+
+.pdf-viewer header {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +9,7 @@ header {
     position: relative;
     z-index: 99;
   }
-  .header-item {
+.pdf-viewer .header-item {
     margin: 0 2.5em;
   }
   
@@ -34,7 +36,7 @@ header {
   }
   
   @media print {
-    header {
+    .pdf-viewer header {
       display: none;
     }
   }
@@ -74,7 +76,7 @@ header {
     bottom: 0;
   }
   
-  .scrolling-page {
+  .pdf-viewer .scrolling-page {
     margin-bottom: 1em;
   }
   
@@ -97,8 +99,8 @@ header {
     width: 100%;
   }
   
-  img,
-  .placeholder {
+  .pdf-viewer img,
+  .pdf-viewer .placeholder {
     border: 7px solid transparent;
     border-radius: 5px;
     width: 65%;
@@ -108,19 +110,19 @@ header {
     border-color: rgba(68, 204, 139, 0.65);
   }
   
-  .placeholder {
+  .pdf-viewer .placeholder {
     background: white;
     background-clip: content-box;
     position: relative;
   }
   
-  .placeholder:before {
+  .pdf-viewer .placeholder:before {
     content: '';
     display: block;
     padding-top: 75%;
   }
   
-  .placeholder .content {
+  .pdf-viewer .placeholder .content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -131,18 +133,18 @@ header {
     bottom: 0;
   }
   
-  .page-number {
+  .pdf-viewer .page-number {
     color: white;
     font-weight: bold;
   }
 
 
-  .pdf-page {
+  .pdf-viewer .pdf-page {
     display: block;
     margin: 0 auto;
   }
 
-  .pdf-document {
+  .pdf-viewer .pdf-document {
     position: absolute;
     overflow: auto;
     width: 100%;
@@ -153,12 +155,12 @@ header {
     background: #525f69;
   }
   
-  .scrolling-page {
+  .pdf-viewer .scrolling-page {
     margin-bottom: 1em;
   }
   
   @media print {
-    .pdf-document {
+    .pdf-viewer .pdf-document {
       position: static;
     }
   }
