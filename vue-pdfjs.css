@@ -1,0 +1,164 @@
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1em;
+    position: relative;
+    z-index: 99;
+  }
+  .header-item {
+    margin: 0 2.5em;
+  }
+  
+  .pdf-viewer .pdf-viewer__document,
+  .pdf-viewer .pdf-viewer__preview {
+    top: 70px;
+  }
+  
+  .pdf-viewer__preview {
+    display: block;
+    width: 15%;
+    right: 85%;
+  }
+  
+  .pdf-viewer__document {
+    top: 70px;
+    width: 100%;
+    left: 0;
+  }
+  
+  .pdf-viewer__document.preview-enabled {
+    width: 85%;
+    left: 15%;
+  }
+  
+  @media print {
+    header {
+      display: none;
+    }
+  }
+
+  .pdf-zoom a {
+    float: left;
+    cursor: pointer;
+    display: block;
+    border: 1px #333 solid;
+    background: white;
+    color: #333;
+    font-weight: bold;
+    line-height: 1.5em;
+    width: 1.5em;
+    height: 1.5em;
+    font-size: 1.5em;
+  }
+
+  .pdf-paginator {
+    color: white;
+    font-weight: bold;
+  }
+  .pdf-paginator input {
+    width: 2em;
+    padding: 0.3em;
+  }
+
+
+  .pdf-preview {
+    position: absolute;
+    overflow: auto;
+    z-index: 1;
+    padding: 2em 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .scrolling-page {
+    margin-bottom: 1em;
+  }
+  
+  @media print {
+    .pdf-preview {
+      display: none;
+    }
+  }
+
+
+
+  .pdf-thumbnail {
+    cursor: pointer;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+  }
+  
+  img,
+  .placeholder {
+    border: 7px solid transparent;
+    border-radius: 5px;
+    width: 65%;
+  }
+  
+  .pdf-thumbnail.focused img {
+    border-color: rgba(68, 204, 139, 0.65);
+  }
+  
+  .placeholder {
+    background: white;
+    background-clip: content-box;
+    position: relative;
+  }
+  
+  .placeholder:before {
+    content: '';
+    display: block;
+    padding-top: 75%;
+  }
+  
+  .placeholder .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .page-number {
+    color: white;
+    font-weight: bold;
+  }
+
+
+  .pdf-page {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .pdf-document {
+    position: absolute;
+    overflow: auto;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #525f69;
+  }
+  
+  .scrolling-page {
+    margin-bottom: 1em;
+  }
+  
+  @media print {
+    .pdf-document {
+      position: static;
+    }
+  }
