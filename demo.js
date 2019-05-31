@@ -1,7 +1,8 @@
 var app = new Vue({
-    el: '#app',
-    data: {
-        bytes:
+  el: '#app',
+  data() {
+    return {
+      pdfData:
         "JVBERi0xLjcKCjEgMCBvYmogICUgZW50cnkgcG9pbnQKPDwKICAvVHlwZSAvQ2F0YWxvZwog" +
         "IC9QYWdlcyAyIDAgUgo+PgplbmRvYmoKCjIgMCBvYmoKPDwKICAvVHlwZSAvUGFnZXMKICAv" +
         "TWVkaWFCb3ggWyAwIDAgMjAwIDIwMCBdCiAgL0NvdW50IDEKICAvS2lkcyBbIDMgMCBSIF0K" +
@@ -16,4 +17,10 @@ var app = new Vue({
         "MDAwIG4gCjAwMDAwMDAzODAgMDAwMDAgbiAKdHJhaWxlcgo8PAogIC9TaXplIDYKICAvUm9v" +
         "dCAxIDAgUgo+PgpzdGFydHhyZWYKNDkyCiUlRU9G"
     }
-  })
+  },
+  methods: {
+    pullPdf() {
+
+    }
+  }
+})

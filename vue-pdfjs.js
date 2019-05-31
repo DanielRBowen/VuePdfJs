@@ -12,7 +12,7 @@
 */
 
 function log(message, el) {
-    console.log(message)
+    //console.log(message)
 };
 
 function floor(value, precision) {
@@ -113,6 +113,10 @@ Vue.component('vue-pdfjs', {
         class="header-item"
         />
 
+    <a @click.prevent.stop="close">
+        <CloseIcon  />
+    </a>
+
     <slot name="header"></slot>
     </header>
 
@@ -149,7 +153,7 @@ Vue.component('vue-pdfjs', {
     data() {
         return {
             scale: 1.0,
-            optimalScale: 1.0,
+            optimalScale: 2.0,
             fit: '1',
             currentPage: 1,
             pageCount: 1,
@@ -186,6 +190,10 @@ Vue.component('vue-pdfjs', {
         togglePreview() {
             this.isPreviewEnabled = !this.isPreviewEnabled;
         },
+
+        close() {
+            this.$emit('close');
+        }
     },
     computed: {
         isAuthenticated() {
@@ -235,6 +243,15 @@ Vue.component('PreviewIcon', {
 });
 
 
+Vue.component('CloseIcon', {
+    template: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8">
+        <path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" />
+    </svg>
+    `
+});
+
+
 Vue.component('PDFZoom', {
     template: `
     <div class="pdf-zoom">
@@ -247,7 +264,7 @@ Vue.component('PDFZoom', {
     props: {
         scale: {
             type: Number,
-            default: 1.0
+            default: 10.0
         },
         increment: {
             type: Number,
@@ -324,9 +341,9 @@ function getDocumentFromBytes(bytes) {
     //let pdfData = Buffer.from(bytes, "base64").toString("binary");
     let pdfData = atob(bytes);
 
-    this.loadingTask = this.pdfjsLib.getDocument({ data: pdfData });
+    loadingTask = this.pdfjsLib.getDocument({ data: pdfData });
 
-    return this.loadingTask;
+    return loadingTask;
 }
 
 
@@ -372,6 +389,7 @@ Vue.component('PDFData', {
                 }
 
                 getDocumentFromBytes(bytes)
+                    .promise
                     .then(pdf => (this.pdf = pdf))
                     .catch(response => {
                         this.$emit("document-errored", {
@@ -757,7 +775,7 @@ Vue.component('PDFThumbnail', {
 
     computed: {
         viewport() {
-            return this.page.getViewport(1.0);
+            return this.page.getViewport({ scale: 1.0 });
         },
 
         pageNumber() {
@@ -782,6 +800,7 @@ Vue.component('PDFThumbnail', {
 
             this.renderTask = this.page.render(renderContext);
             this.renderTask
+                .promise
                 .then(() => {
                     this.src = canvas.toDataURL();
 
@@ -790,6 +809,7 @@ Vue.component('PDFThumbnail', {
                     canvas.width = 0;
                     canvas.height = 0;
                 })
+                .promise
                 .then(() => {
                     this.$emit('thumbnail-rendered', {
                         page: this.page,
@@ -920,6 +940,7 @@ Vue.component('PDFPage', {
             // https://mozilla.github.io/pdf.js/api/draft/PDFPageProxy.html
             this.renderTask = this.page.render(renderContext);
             this.renderTask
+                .promise
                 .then(() => {
                     this.$emit('page-rendered', {
                         page: this.page,
@@ -973,7 +994,7 @@ Vue.component('PDFPage', {
     created() {
         // PDFPageProxy#getViewport
         // https://mozilla.github.io/pdf.js/api/draft/PDFPageProxy.html
-        this.viewport = this.page.getViewport(this.optimalScale);
+        this.viewport = this.page.getViewport({ scale: this.optimalScale });
     },
 
     mounted() {
@@ -1040,7 +1061,7 @@ Vue.component('PDFDocument', {
             if (!this.pages.length) return { width: 0, height: 0 };
             const [page] = this.pages;
 
-            return page.getViewport(1.0);
+            return page.getViewport({ scale: 1.0 });
         },
 
         isPortrait() {

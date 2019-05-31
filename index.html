@@ -7,18 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>vue-pdfjs demo</title>
 
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
     <link type="text/css" rel="stylesheet" href="vue-pdfjs.css" />
+
 </head>
 
 <body>
     <div id="app">
-        <vue-pdfjs :bytes="bytes"></vue-pdfjs>
+        <!-- <vue-pdfjs :bytes="bytes"></vue-pdfjs> -->
+        <pdf-viewer :pdf-data="pdfData" v-on:pull="pullPdf">Show Pdf</pdf-viewer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
     <script src="vue-pdfjs.js"></script>
+    <script src="pdf-viewer.js"></script>
     <script src="demo.js"></script>
 </body>
 
