@@ -38,11 +38,9 @@ Vue.component('pdf-viewer', {
                 return;
             }
             this.isOpen = true;
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
         },
         closeOverlay() {
             this.isOpen = false;
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
         }
     },
     watch: {

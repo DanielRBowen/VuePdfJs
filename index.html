@@ -13,9 +13,12 @@
 <body>
     <div id="app">
         <pdf-viewer :pdf-data="pdfData" v-on:pull="pullPdf"><button>Show Pdf</button></pdf-viewer>
-        <download-pdf :filename="'report.pdf'" :payload="pdfData" v-on:download="pullPdf"><button>Download</button></download-pdf>
+        <download-pdf :filename="'report.pdf'" :payload="pdfData" v-on:download="pullPdf"><button>Download</button>
+        </download-pdf>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
