@@ -198,7 +198,7 @@ Vue.component('vue-pdfjs', {
     data() {
         return {
             scale: 1.0,
-            optimalScale: 2.0,
+            optimalScale: 5.0,
             fit: '1',
             currentPage: 1,
             pageCount: 1,
