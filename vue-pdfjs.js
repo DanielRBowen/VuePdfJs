@@ -1,4 +1,5 @@
-/* 
+
+/*
 // https://github.com/DanielRBowen/VuePdfJs
 // Original source from: https://github.com/rossta/vue-pdfjs-demo
 
@@ -10,6 +11,52 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
 */
+// Needs: <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
+// Needs: <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+
+Vue.component('pdf-viewer', {
+    props: ['pdfData'],
+    template: `
+<div>
+    <div class="pdf-overlay" v-show="isOpen">
+        <vue-pdfjs :bytes="pdfData" v-on:close="closeOverlay" style="width:100vw; height:100vh;" />
+    </div>
+    <a v-on:click="openOverlay">
+        <slot>Display PDF</slot>
+    </a>
+</div>
+`,
+    data() {
+        return {
+            isOpen: false
+        };
+    },
+    methods: {
+        openOverlay() {
+            if (typeof this.pdfData === 'undefined' || this.pdfData === null) {
+                this.$emit('pull');
+                return;
+            }
+            this.isOpen = true;
+            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+        },
+        closeOverlay() {
+            this.isOpen = false;
+            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+        }
+    },
+    watch: {
+        pdfData() {
+            if (typeof this.pdfData === 'undefined' || this.pdfData === null) {
+                return;
+            } else {
+                this.openOverlay();
+            }
+        }
+    }
+});
+
+
 
 function log(message, el) {
     //console.log(message)
@@ -113,7 +160,7 @@ Vue.component('vue-pdfjs', {
         class="header-item"
         />
 
-    <a @click.prevent.stop="close">
+    <a @click.prevent.stop="close" class="icon">
         <CloseIcon  />
     </a>
 
@@ -195,11 +242,6 @@ Vue.component('vue-pdfjs', {
             this.$emit('close');
         }
     },
-    computed: {
-        isAuthenticated() {
-            return store.state.isAuthenticated;
-        }
-    },
     watch: {
         bytes() {
             this.currentPage = undefined;
@@ -245,8 +287,19 @@ Vue.component('PreviewIcon', {
 
 Vue.component('CloseIcon', {
     template: `
-    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8">
+    <!--<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8">
         <path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" />
+    </svg>-->
+
+    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+     width="16.000000pt" height="16.000000pt" viewBox="0 0 16.000000 16.000000"
+     preserveAspectRatio="xMidYMid meet">
+    <g transform="translate(0.000000,16.000000) scale(0.100000,-0.100000)"
+    fill="#000000" stroke="none">
+    <path d="M0 153 c0 -4 14 -22 32 -40 l32 -33 -34 -35 c-44 -45 -30 -59 15 -15
+    l35 34 35 -34 c45 -44 59 -30 15 15 l-34 35 34 35 c44 45 30 59 -15 15 l-35
+    -34 -33 32 c-32 31 -47 39 -47 25z"/>
+    </g>
     </svg>
     `
 });
@@ -264,7 +317,7 @@ Vue.component('PDFZoom', {
     props: {
         scale: {
             type: Number,
-            default: 10.0
+            default: 1.0
         },
         increment: {
             type: Number,
@@ -581,12 +634,13 @@ Vue.component('ScrollingDocument', {
         return {
             focusedPage: undefined,
             scrollTop: 0,
-            clientHeight: 0,
+            clientHeight: 0
         };
     },
 
     computed: {
         pagesLength() {
+
             return this.pages.length;
         },
     },
@@ -626,6 +680,9 @@ Vue.component('ScrollingDocument', {
                 this.focusedPage = currentPage;
             }
         },
+    },
+
+    mounted() {
     }
 });
 
@@ -809,7 +866,6 @@ Vue.component('PDFThumbnail', {
                     canvas.width = 0;
                     canvas.height = 0;
                 })
-                .promise
                 .then(() => {
                     this.$emit('thumbnail-rendered', {
                         page: this.page,
@@ -1019,7 +1075,7 @@ Vue.component('PDFDocument', {
     :enable-page-jump="true"
     @page-jump="onPageJump"
     @pages-fetch="onPagesFetch"
-    @pages-reset="fitWidth"
+    @pages-reset="fitAuto"
     >
     <PDFPage
       v-bind="{scale, optimalScale, page, isPageFocused, isElementFocused}"
@@ -1142,7 +1198,7 @@ Vue.component('PDFDocument', {
                     break;
             }
         },
-        pageCount: 'fitWidth',
-        isPreviewEnabled: 'fitWidth',
+        pageCount: 'fitAuto',
+        isPreviewEnabled: 'fitAuto',
     }
 });

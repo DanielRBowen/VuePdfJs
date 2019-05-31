@@ -8,40 +8,45 @@
     padding: 1em;
     position: relative;
     z-index: 99;
-  }
+    background-color: black;
+    height: 10vh;
+}
+
 .pdf-viewer .header-item {
-    margin: 0 2.5em;
-  }
-  
-  .pdf-viewer .pdf-viewer__document,
-  .pdf-viewer .pdf-viewer__preview {
-    top: 70px;
-  }
-  
-  .pdf-viewer__preview {
+    margin: 0 1.5em;
+}
+
+.pdf-viewer .pdf-viewer__document,
+.pdf-viewer .pdf-viewer__preview {
+    top: 10vh;
+}
+
+.pdf-viewer__preview {
     display: block;
     width: 15%;
+    height: 90vh;
     right: 85%;
-  }
-  
-  .pdf-viewer__document {
-    top: 70px;
+    background-color: black;
+}
+
+.pdf-viewer__document {
+    top: 10vh;
     width: 100%;
     left: 0;
-  }
-  
-  .pdf-viewer__document.preview-enabled {
-    width: 85%;
-    left: 15%;
-  }
-  
-  @media print {
-    .pdf-viewer header {
-      display: none;
-    }
-  }
+}
 
-  .pdf-zoom a {
+    .pdf-viewer__document.preview-enabled {
+        width: 85%;
+        left: 15%;
+    }
+
+@media print {
+    .pdf-viewer header {
+        display: none;
+    }
+}
+
+.pdf-zoom a, .pdf-viewer a {
     float: left;
     cursor: pointer;
     display: block;
@@ -53,19 +58,20 @@
     width: 1.5em;
     height: 1.5em;
     font-size: 1.5em;
-  }
+}
 
-  .pdf-paginator {
-    color: white;
+.pdf-paginator {
+    color: whitesmoke;
     font-weight: bold;
-  }
-  .pdf-paginator input {
-    width: 2em;
-    padding: 0.3em;
-  }
+}
+
+    .pdf-paginator input {
+        width: 4em;
+        padding: 0.3em;
+    }
 
 
-  .pdf-preview {
+.pdf-preview {
     position: absolute;
     overflow: auto;
     z-index: 1;
@@ -74,21 +80,21 @@
     left: 0;
     right: 0;
     bottom: 0;
-  }
-  
-  .pdf-viewer .scrolling-page {
+}
+
+.pdf-viewer .scrolling-page {
     margin-bottom: 1em;
-  }
-  
-  @media print {
+}
+
+@media print {
     .pdf-preview {
-      display: none;
+        display: none;
     }
-  }
+}
 
 
 
-  .pdf-thumbnail {
+.pdf-thumbnail {
     cursor: pointer;
     margin: 0 auto;
     display: flex;
@@ -97,54 +103,55 @@
     flex-direction: column;
     position: relative;
     width: 100%;
-  }
-  
-  .pdf-viewer img,
-  .pdf-viewer .placeholder {
+}
+
+.pdf-viewer img,
+.pdf-viewer .placeholder {
     border: 7px solid transparent;
     border-radius: 5px;
     width: 65%;
-  }
-  
-  .pdf-thumbnail.focused img {
+}
+
+.pdf-thumbnail.focused img {
     border-color: rgba(68, 204, 139, 0.65);
-  }
-  
-  .pdf-viewer .placeholder {
+}
+
+.pdf-viewer .placeholder {
     background: white;
     background-clip: content-box;
     position: relative;
-  }
-  
-  .pdf-viewer .placeholder:before {
-    content: '';
-    display: block;
-    padding-top: 75%;
-  }
-  
-  .pdf-viewer .placeholder .content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-  
-  .pdf-viewer .page-number {
+}
+
+    .pdf-viewer .placeholder:before {
+        content: '';
+        display: block;
+        padding-top: 75%;
+    }
+
+    .pdf-viewer .placeholder .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+.pdf-viewer .page-number {
     color: white;
     font-weight: bold;
-  }
+}
 
 
-  .pdf-viewer .pdf-page {
+.pdf-viewer .pdf-page {
     display: block;
-    margin: 0 auto;
-  }
+    margin: 10vh auto;
+    height: 90vh;
+}
 
-  .pdf-viewer .pdf-document {
+.pdf-viewer .pdf-document {
     position: absolute;
     overflow: auto;
     width: 100%;
@@ -152,20 +159,27 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: #525f69;
-  }
-  
-  .pdf-viewer .scrolling-page {
-    margin-bottom: 1em;
-  }
-  
-  @media print {
-    .pdf-viewer .pdf-document {
-      position: static;
-    }
-  }
+    background: rgba(201,201,201,1);
+    background: -moz-linear-gradient(left, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(201,201,201,1)), color-stop(22%, rgba(190,190,190,1)), color-stop(30%, rgba(186,186,186,1)), color-stop(51%, rgba(196,196,196,1)), color-stop(76%, rgba(212,212,212,1)), color-stop(79%, rgba(214,214,214,1)), color-stop(100%, rgba(227,227,227,1)));
+    background: -webkit-linear-gradient(left, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
+    background: -o-linear-gradient(left, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
+    background: -ms-linear-gradient(left, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
+    background: linear-gradient(to right, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9c9c9', endColorstr='#e3e3e3', GradientType=1 );
+}
 
-  .pdf-overlay {
+.pdf-viewer .scrolling-page {
+    margin-bottom: 1em;
+}
+
+@media print {
+    .pdf-viewer .pdf-document {
+        position: static;
+    }
+}
+
+.pdf-overlay {
     position: fixed;
     display: block;
     width: 100vw;
@@ -174,17 +188,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    /*background-color: rgba(0, 0, 0, 0.5);*/
     z-index: 2;
     cursor: pointer;
-  }
-  
-  .pdf-overlay-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 24px;
-    color: white;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-  }
+}
