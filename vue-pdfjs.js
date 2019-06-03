@@ -3,16 +3,37 @@
 // https://github.com/DanielRBowen/VuePdfJs
 // Original source from: https://github.com/rossta/vue-pdfjs-demo
 
+<head>
+    <link type="text/css" rel="stylesheet" href="vue-pdfjs.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/css/perfect-scrollbar.min.css" />
+</head>
+
+<body>
     <div id="app">
-        <vue-pdfjs :bytes="bytes"></vue-pdfjs>
+        <pdf-viewer :pdf-data="pdfData" v-on:pull="pullPdf"><button>Show Pdf</button></pdf-viewer>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
+    <script src="download-pdf.js"></script>
+    <script src="vue-pdfjs.js"></script>
+    <script src="demo.js"></script>
+</body>
+
 */
+
+// Needs JQuery
+// Needs Vue <script src="https://unpkg.com/vue"></script>
 // Needs: <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
 // Needs: <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+// Needs: <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.min.js"></script>
+
+// Needs: <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/css/perfect-scrollbar.min.css" />
+// Needs: <link type="text/css" rel="stylesheet" href="vue-pdfjs.css" />
 
 Vue.component('pdf-viewer', {
     props: ['pdfData'],
@@ -28,7 +49,8 @@ Vue.component('pdf-viewer', {
 `,
     data() {
         return {
-            isOpen: false
+            isOpen: false,
+            ps: null
         };
     },
     methods: {
@@ -185,7 +207,7 @@ Vue.component('vue-pdfjs', {
         <PDFDocument
         class="pdf-viewer__document"
         :class="{ 'preview-enabled': isPreviewEnabled }"
-        v-bind="{pages, scale, optimalScale, fit, currentPage, pageCount, isPreviewEnabled}"
+        v-bind="{pages, scale, optimalScale, fit, currentPage, pageCount, isPreviewEnabled, minScale}"
         @scale-change="updateScale"
         />
     </template>
@@ -198,7 +220,8 @@ Vue.component('vue-pdfjs', {
     data() {
         return {
             scale: 1.0,
-            optimalScale: 5.0,
+            optimalScale: 3.0,
+            minScale: 0.8,
             fit: '1',
             currentPage: 1,
             pageCount: 1,
@@ -218,6 +241,10 @@ Vue.component('vue-pdfjs', {
             const roundedScale = floor(scale, 2);
             if (isOptimal) this.optimalScale = roundedScale;
             this.scale = roundedScale;
+
+            if (this.scale < this.minScale) {
+                this.scale = this.minScale;
+            }
         },
 
         updateFit(fit) {
@@ -496,6 +523,12 @@ Vue.component('PDFData', {
                     this.$emit('document-errored', { text: 'Failed to retrieve pages', response });
                     log('Failed to retrieve pages', response);
                 });
+
+            if (typeof document.pdfPs === 'undefined' || document.pdfPs === null) {
+                $('.pdf-scroll').each(function () { document.pdfPs = new PerfectScrollbar($(this)[0]); });
+            }
+
+            document.pdfPs.update();
         },
 
         onPageRendered({ text, page }) {
@@ -531,7 +564,7 @@ Vue.component('PDFData', {
 Vue.component('PDFPreview', {
     template: `
     <ScrollingDocument
-    class="pdf-preview"
+    class="pdf-preview pdf-scroll"
     @pages-fetch="onPagesFetch"
     v-bind="{pages, pageCount, currentPage}"
     v-slot="{page, isPageFocused}"
@@ -1067,7 +1100,7 @@ Vue.component('PDFPage', {
 Vue.component('PDFDocument', {
     template: `
     <ScrollingDocument
-    class="pdf-document"
+    class="pdf-document pdf-scroll"
     v-bind="{pages, pageCount, currentPage}"
     v-slot="{page, isPageFocused, isElementFocused}"
     :enable-page-jump="true"
@@ -1157,6 +1190,11 @@ Vue.component('PDFDocument', {
 
         updateScale(scale, { isOptimal = false } = {}) {
             if (!scale) return;
+
+            if (scale < this.minScale) {
+                scale = this.minScale;
+            }
+
             this.$emit('scale-change', { scale, isOptimal });
         },
 
@@ -1197,6 +1235,6 @@ Vue.component('PDFDocument', {
             }
         },
         pageCount: 'fitAuto',
-        isPreviewEnabled: 'fitAuto',
+        isPreviewEnabled: 'fitAuto'
     }
 });

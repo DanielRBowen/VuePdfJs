@@ -10,6 +10,7 @@
     z-index: 99;
     background-color: black;
     height: 10vh;
+    margin-right: 17px;
 }
 
 .pdf-viewer .header-item {
