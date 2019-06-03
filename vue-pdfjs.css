@@ -14,7 +14,7 @@
 }
 
 .pdf-viewer .header-item {
-    margin: 0 1.5em;
+    margin: 0 2.5em;
 }
 
 .pdf-viewer .pdf-viewer__document,
@@ -56,9 +56,10 @@
     color: #333;
     font-weight: bold;
     line-height: 1.5em;
-    width: 1.5em;
-    height: 1.5em;
+    width: 2em;
+    height: 2em;
     font-size: 1.5em;
+    padding: 0.175em;
 }
 
 .pdf-paginator {
