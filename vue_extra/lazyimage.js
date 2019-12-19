@@ -38,23 +38,60 @@
     }
 });
 
+/*
+ * .detailed-image {
+	z-index: 2100;
+	position: absolute;
+	top: -20px;
+	left: -35px;
+	cursor: pointer;
+}
+ */
 
+// Can try the  loading="lazy" attribute as shown here: https://web.dev/native-lazy-loading/
 //https://css-tricks.com/lazy-loading-images-with-vue-js-directives-and-intersection-observer/
 Vue.component("lazyimage", {
     template: `
-    <figure v-lazyload>
-        <img :data-url="source" :alt="alt">
+<div>
+    <figure v-lazyload style="cursor: pointer;">
+        <img :data-url="source" alt="…" v-on:click="toggleDetailed">
     </figure>
+    <figure v-lazyload v-if="isDetailedDisplayed" class="detailed-image" style="z-index: 2100; position: absolute; top: -20px; left: -35px; cursor: pointer;">
+        <img :data-url="detailedSource" alt="…" v-on:click="toggleDetailed">
+    </figure>
+</div>
 `,
     props: {
         source: {
             type: String,
             required: true
         },
+        detailedSource: {
+            type: String,
+            required: false
+        },
         alt: {
             type: String,
             required: false,
-            default: "Image"
+            default: "…"
+        }
+    },
+    data() {
+        return {
+            isDetailedDisplayed: false
+        };
+    },
+    methods: {
+        toggleDetailed() {
+            if (typeof this.detailedSource !== 'undefined' && this.detailedSource !== null) {
+                if (this.isDetailedDisplayed === true) {
+                    this.isDetailedDisplayed = false;
+                } else {
+                    this.isDetailedDisplayed = true;
+                }
+            } else {
+                this.isDetailedDisplayed = false;
+            }
         }
     }
 });
