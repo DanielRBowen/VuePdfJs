@@ -1,226 +1,196 @@
 /* https://github.com/DanielRBowen/VuePdfJs */
 
-.pdf-viewer {
-	z-index: 2000;
+.pdf-viewer header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1em;
+    position: relative;
+    z-index: 99;
+    background-color: black;
+    height: 10vh;
+    margin-right: 17px;
 }
-
-	.pdf-viewer header {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-wrap: wrap;
-		/*padding: .25rem;*/
-		position: fixed;
-		z-index: 2000;
-		background-color: #454545;
-		height: 60px;
-		width: 100%;
-		/*margin-right: 17px;*/
-		border-bottom: 1px solid #252525;
-	}
-
-	.pdf-viewer header .btn {
-		font-size: .875rem;
-	}
 
 .pdf-viewer .header-item {
-	margin: 0;
+    margin: 0 2.5em;
 }
 
-.page-input {
-	margin: 10px 0!important; 
-	padding: 0 10px;
-	text-align: center;
-	border-radius: 0!important;
-}
-
-.page-count {
-	background-color: #eee!important;
-}
-
-/*.pdf-viewer .pdf-viewer__document,
+.pdf-viewer .pdf-viewer__document,
 .pdf-viewer .pdf-viewer__preview {
-	top: 10vh;
-}*/
+    top: 10vh;
+}
 
 .pdf-viewer__preview {
-	display: block;
-	width: 15%;
-	/*height: 100vh;*/
-	right: 85%;
-	margin-top: 60px;
-	background-color: #454545;
+    display: block;
+    width: 15%;
+    height: 90vh;
+    right: 85%;
+    background-color: black;
 }
 
 .pdf-viewer__document {
-	top: 0;
-	width: 100%;
-	left: 0;
-	margin-top: 60px;
+    top: 10vh;
+    width: 100%;
+    left: 0;
 }
 
-	.pdf-viewer__document.preview-enabled {
-		width: 85%;
-		left: 15%;
-	}
+    .pdf-viewer__document.preview-enabled {
+        width: 85%;
+        left: 15%;
+    }
 
 @media print {
-	.pdf-viewer header {
-		display: none;
-	}
+    .pdf-viewer header {
+        display: none;
+    }
 }
 
 .pdf-zoom a, .pdf-viewer a {
-	/*float: left;
-	position: center;
-	cursor: pointer;
-	display: block;*/
-	/*border: 1px #333 solid;*/
-	/*background: white;*/
-	/*color: #333;*/
-	/*font-weight: bold;
-	line-height: 1.5em;*/
-	/*width: 2.5rem;*/
-	/*height: 2rem;*/
-	/*font-size: 1.5rem;
-	padding: 0.175rem;*/
+    float: left;
+    cursor: pointer;
+    display: block;
+    border: 1px #333 solid;
+    background: white;
+    color: #333;
+    font-weight: bold;
+    line-height: 1.5em;
+    width: 2em;
+    height: 2em;
+    font-size: 1.5em;
+    padding: 0.175em;
 }
 
 .pdf-paginator {
-	/*color: white;*/
-	/*font-weight: bold;
-	font-weight: bold;
-	font-size: large;*/
+    color: whitesmoke;
+    font-weight: bold;
 }
 
-	.pdf-paginator input {
-		width: 4em;
-		/*padding: 0.3em;
-		font-weight: bold;
-		font-size:large;*/
-	}
+    .pdf-paginator input {
+        width: 4em;
+        padding: 0.3em;
+    }
 
 
 .pdf-preview {
-	position: absolute;
-	z-index: 2000;
-	padding: 2em 0;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+    position: absolute;
+    overflow: auto;
+    z-index: 1;
+    padding: 2em 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.pdf-viewer .scrolling-page {
+    margin-bottom: 1em;
 }
 
 @media print {
-	.pdf-preview {
-		display: none;
-	}
+    .pdf-preview {
+        display: none;
+    }
 }
 
 
+
 .pdf-thumbnail {
-	cursor: pointer;
-	margin: 0 auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	position: relative;
-	width: 100%;
+    cursor: pointer;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
 }
 
 .pdf-viewer img,
 .pdf-viewer .placeholder {
-	border: 7px solid transparent;
-	border-radius: 5px;
-	width: 65%;
+    border: 7px solid transparent;
+    border-radius: 5px;
+    width: 65%;
 }
 
 .pdf-thumbnail.focused img {
-	border-color: rgba(68, 204, 139, 0.65);
+    border-color: rgba(68, 204, 139, 0.65);
 }
 
 .pdf-viewer .placeholder {
-	background: white;
-	background-clip: content-box;
-	position: relative;
+    background: white;
+    background-clip: content-box;
+    position: relative;
 }
 
-	.pdf-viewer .placeholder:before {
-		content: '';
-		display: block;
-		padding-top: 75%;
-	}
+    .pdf-viewer .placeholder:before {
+        content: '';
+        display: block;
+        padding-top: 75%;
+    }
 
-	.pdf-viewer .placeholder .content {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-	}
+    .pdf-viewer .placeholder .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
 
 .pdf-viewer .page-number {
-	color: white;
-	font-weight: bold;
+    color: white;
+    font-weight: bold;
 }
 
-.pdf-viewer .scrolling-document {
-	overflow-y: scroll;
-}
 
 .pdf-viewer .pdf-page {
-	display: block;
-	margin: 30px auto;
-	/*height: 90vh;*/
+    display: block;
+    margin: 10vh auto;
+    height: 90vh;
 }
 
 .pdf-viewer .pdf-document {
-	position: absolute;
-	overflow-y: scroll;
-	width: 100%;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background: rgba(201,201,201,1);
-	background: -moz-linear-gradient(left, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
-	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(201,201,201,1)), color-stop(22%, rgba(190,190,190,1)), color-stop(30%, rgba(186,186,186,1)), color-stop(51%, rgba(196,196,196,1)), color-stop(76%, rgba(212,212,212,1)), color-stop(79%, rgba(214,214,214,1)), color-stop(100%, rgba(227,227,227,1)));
-	background: -webkit-linear-gradient(left, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
-	background: -o-linear-gradient(left, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
-	background: -ms-linear-gradient(left, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
-	background: linear-gradient(to right, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9c9c9', endColorstr='#e3e3e3', GradientType=1 );
+    position: absolute;
+    overflow: auto;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(201,201,201,1);
+    background: -moz-linear-gradient(left, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(201,201,201,1)), color-stop(22%, rgba(190,190,190,1)), color-stop(30%, rgba(186,186,186,1)), color-stop(51%, rgba(196,196,196,1)), color-stop(76%, rgba(212,212,212,1)), color-stop(79%, rgba(214,214,214,1)), color-stop(100%, rgba(227,227,227,1)));
+    background: -webkit-linear-gradient(left, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
+    background: -o-linear-gradient(left, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
+    background: -ms-linear-gradient(left, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
+    background: linear-gradient(to right, rgba(201,201,201,1) 0%, rgba(190,190,190,1) 22%, rgba(186,186,186,1) 30%, rgba(196,196,196,1) 51%, rgba(212,212,212,1) 76%, rgba(214,214,214,1) 79%, rgba(227,227,227,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9c9c9', endColorstr='#e3e3e3', GradientType=1 );
 }
 
 .pdf-viewer .scrolling-page {
-	margin-bottom: 1em;
+    margin-bottom: 1em;
 }
 
 @media print {
-	.pdf-viewer .pdf-document {
-		position: static;
-	}
+    .pdf-viewer .pdf-document {
+        position: static;
+    }
 }
 
 .pdf-overlay {
-	position: fixed;
-	display: block;
-	width: 100vw;
-	height: 100vh;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 2000;
-	/*cursor: pointer;*/
+    position: fixed;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*background-color: rgba(0, 0, 0, 0.5);*/
+    z-index: 2;
+    cursor: pointer;
 }
-
-/*html {
-	height: 100.1%;
-	margin-bottom: 1px;
-}*/
