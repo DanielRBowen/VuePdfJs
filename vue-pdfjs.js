@@ -162,29 +162,31 @@ Vue.directive('visible', {
 Vue.component('vue-pdfjs', {
     template: `
 <div class="pdf-viewer">
-    <header class="pdf-viewer__header box-shadow">
-    <div class="pdf-preview-toggle">
-        <a @click.prevent.stop="togglePreview" class="icon"><PreviewIcon /></a>
-    </div>
+    <header class="pdf-viewer__header box-shadow btn-toolbar justify-content-around">
+        <div class="pdf-preview-toggle btn-group">
+            <a @click.prevent.stop="togglePreview" class="btn"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+        </div>
 
-    <PDFZoom
-        :scale="scale"
-        @change="updateScale"
-        @fit="updateFit"
-        class="header-item"
-        />
+        <PDFZoom
+            :scale="scale"
+            @change="updateScale"
+            @fit="updateFit"
+            class="header-item d-none d-md-block"
+            />
 
-    <PDFPaginator
-        v-model="currentPage"
-        :pageCount="pageCount"
-        class="header-item"
-        />
+        <PDFPaginator
+            v-model="currentPage"
+            :pageCount="pageCount"
+            class="header-item"
+            />
 
-    <a @click.prevent.stop="close" class="icon">
-        <CloseIcon  />
-    </a>
+        <div class="btn-group">
+            <a @click.prevent.stop="close" class="btn">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </a>
+        </div>
 
-    <slot name="header"></slot>
+        <slot name="header"></slot>
     </header>
 
     <PDFData
@@ -278,65 +280,15 @@ Vue.component('vue-pdfjs', {
 });
 
 
-Vue.component('ZoomInIcon', {
-    template: `
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><path d="M93.2,84.8L70.6,62.3c4.3-6,6.8-13.3,6.8-21.2C77.4,21,61.2,4.8,41.1,4.8C21,4.8,4.8,21,4.8,41.1S21,77.4,41.1,77.4   c7.8,0,15.1-2.5,21-6.7l22.6,22.6c2,2,5.4,2,7.4,0l1.1-1.1C95.2,90.2,95.2,86.9,93.2,84.8z M41.1,66.6c-14.1,0-25.5-11.4-25.5-25.5   S27,15.6,41.1,15.6c14.1,0,25.5,11.4,25.5,25.5S55.2,66.6,41.1,66.6z"></path><path d="M53.1,36.5h-7.6v-7.6c0-2.5-2-4.5-4.5-4.5s-4.5,2-4.5,4.5v7.6H29c-2.5,0-4.5,2-4.5,4.5s2,4.5,4.5,4.5h7.6v7.6   c0,2.5,2,4.5,4.5,4.5s4.5-2,4.5-4.5v-7.6h7.6c2.5,0,4.5-2,4.5-4.5S55.6,36.5,53.1,36.5z"></path></g></svg>
-    `
-});
-
-Vue.component('ZoomOutIcon', {
-    template: `
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><path d="M93.2,84.8L70.6,62.3c4.3-6,6.8-13.3,6.8-21.2C77.4,21,61.2,4.8,41.1,4.8C21,4.8,4.8,21,4.8,41.1S21,77.4,41.1,77.4   c7.8,0,15.1-2.5,21-6.7l22.6,22.6c2,2,5.4,2,7.4,0l1.1-1.1C95.2,90.2,95.2,86.9,93.2,84.8z M41.1,66.6c-14.1,0-25.5-11.4-25.5-25.5   S27,15.6,41.1,15.6c14.1,0,25.5,11.4,25.5,25.5S55.2,66.6,41.1,66.6z"></path><path d="M29,36.5c-2.5,0-4.5,2-4.5,4.5s2,4.5,4.5,4.5h24.2c2.5,0,4.5-2,4.5-4.5s-2-4.5-4.5-4.5H29z"></path></g></svg>
-    `
-});
-
-Vue.component('ExpandIcon', {
-    template: `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" enable-background="new 0 0 16 16" x="0px" y="0px"><g><path d="M6 16h-6v-6h2v4h4zM16 6h-2v-4h-4v-2h6zM1 16c-.256 0-.512-.098-.707-.293-.391-.391-.391-1.023 0-1.414l5-5c.391-.391 1.023-.391 1.414 0s.391 1.023 0 1.414l-5 5c-.195.195-.451.293-.707.293zM10 7c-.256 0-.512-.098-.707-.293-.391-.391-.391-1.023 0-1.414l5-5c.391-.391 1.023-.391 1.414 0s.391 1.023 0 1.414l-5 5c-.195.195-.451.293-.707.293z"></path></g></svg>
-    `
-});
-
-Vue.component('ShrinkIcon', {
-    template: `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" enable-background="new 0 0 16 16" x="0px" y="0px"><g><path d="M15 7h-6v-6h2v4h4zM7 15h-2v-4h-4v-2h6zM10 7c-.256 0-.512-.098-.707-.293-.391-.391-.391-1.023 0-1.414l5-5c.391-.391 1.023-.391 1.414 0s.391 1.023 0 1.414l-5 5c-.195.195-.451.293-.707.293zM1 16c-.256 0-.512-.098-.707-.293-.391-.391-.391-1.023 0-1.414l5-5c.391-.391 1.023-.391 1.414 0s.391 1.023 0 1.414l-5 5c-.195.195-.451.293-.707.293z"></path></g></svg>
-    `
-});
-
-
-Vue.component('PreviewIcon', {
-    template: `
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><g><path d="M31,14H13c-0.552,0-1-0.448-1-1s0.448-1,1-1h18c0.553,0,1,0.448,1,1S31.553,14,31,14z"></path><path d="M31,17H13c-0.552,0-1-0.448-1-1s0.448-1,1-1h18c0.553,0,1,0.448,1,1S31.553,17,31,17z"></path><path d="M26,20H13c-0.552,0-1-0.447-1-1s0.448-1,1-1h13c0.553,0,1,0.447,1,1S26.553,20,26,20z"></path><path d="M31,25H13c-0.552,0-1-0.447-1-1s0.448-1,1-1h18c0.553,0,1,0.447,1,1S31.553,25,31,25z"></path><path d="M31,28H13c-0.552,0-1-0.447-1-1s0.448-1,1-1h18c0.553,0,1,0.447,1,1S31.553,28,31,28z"></path><path d="M17,31h-4c-0.552,0-1-0.447-1-1s0.448-1,1-1h4c0.553,0,1,0.447,1,1S17.553,31,17,31z"></path><path d="M31,3H13c-0.552,0-1-0.448-1-1s0.448-1,1-1h18c0.553,0,1,0.448,1,1S31.553,3,31,3z"></path><path d="M31,6H13c-0.552,0-1-0.448-1-1s0.448-1,1-1h18c0.553,0,1,0.448,1,1S31.553,6,31,6z"></path><path d="M22,9h-9c-0.552,0-1-0.448-1-1s0.448-1,1-1h9c0.553,0,1,0.448,1,1S22.553,9,22,9z"></path><path d="M7.504,10H2.496C1.12,10,0,8.88,0,7.504V2.496C0,1.12,1.12,0,2.496,0h5.008C8.88,0,10,1.12,10,2.496v5.008   C10,8.88,8.88,10,7.504,10z M2.496,2C2.223,2,2,2.223,2,2.496v5.008C2,7.777,2.223,8,2.496,8h5.008C7.777,8,8,7.777,8,7.504V2.496   C8,2.223,7.777,2,7.504,2H2.496z"></path><path d="M7.504,21H2.496C1.12,21,0,19.88,0,18.504v-5.008C0,12.12,1.12,11,2.496,11h5.008C8.88,11,10,12.12,10,13.496v5.008   C10,19.88,8.88,21,7.504,21z M2.496,13C2.223,13,2,13.223,2,13.496v5.008C2,18.777,2.223,19,2.496,19h5.008   C7.777,19,8,18.777,8,18.504v-5.008C8,13.223,7.777,13,7.504,13H2.496z"></path><path d="M7.504,32H2.496C1.12,32,0,30.88,0,29.504v-5.008C0,23.12,1.12,22,2.496,22h5.008C8.88,22,10,23.12,10,24.496v5.008   C10,30.88,8.88,32,7.504,32z M2.496,24C2.223,24,2,24.223,2,24.496v5.008C2,29.777,2.223,30,2.496,30h5.008   C7.777,30,8,29.777,8,29.504v-5.008C8,24.223,7.777,24,7.504,24H2.496z"></path></g></svg>
-    `
-});
-
-
-Vue.component('CloseIcon', {
-    template: `
-    <!--<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8">
-        <path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" />
-    </svg>-->
-
-    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-     width="16.000000pt" height="16.000000pt" viewBox="0 0 16.000000 16.000000"
-     preserveAspectRatio="xMidYMid meet">
-    <g transform="translate(0.000000,16.000000) scale(0.100000,-0.100000)"
-    fill="#000000" stroke="none">
-    <path d="M0 153 c0 -4 14 -22 32 -40 l32 -33 -34 -35 c-44 -45 -30 -59 15 -15
-    l35 34 35 -34 c45 -44 59 -30 15 15 l-34 35 34 35 c44 45 30 59 -15 15 l-35
-    -34 -33 32 c-32 31 -47 39 -47 25z"/>
-    </g>
-    </svg>
-    `
-});
 
 
 Vue.component('PDFZoom', {
     template: `
-    <div class="pdf-zoom">
-        <a @click.prevent.stop="zoomIn" class="icon" :disabled="isDisabled"><ZoomInIcon /></a>
-        <a @click.prevent.stop="zoomOut" class="icon" :disabled="isDisabled"><ZoomOutIcon /></a>
-        <a @click.prevent.stop="fitWidth" class="icon" :disabled="isDisabled"><ExpandIcon /></a>
-        <a @click.prevent.stop="fitAuto" class="icon" :disabled="isDisabled"><ShrinkIcon /></a>
+    <div class="pdf-zoom btn-group">
+        <a @click.prevent.stop="zoomIn" class="btn" :disabled="isDisabled"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+        <a @click.prevent.stop="zoomOut" class="btn" :disabled="isDisabled"><i class="fa fa-search-minus" aria-hidden="true"></i></a>
+        <a @click.prevent.stop="fitWidth" class="btn" :disabled="isDisabled"><i class="fa fa-expand" aria-hidden="true"></i></a>
+        <a @click.prevent.stop="fitAuto" class="btn" :disabled="isDisabled"><i class="fa fa-compress" aria-hidden="true"></i></a>
     </div>
 `,
     props: {
@@ -384,18 +336,34 @@ Vue.component('PDFZoom', {
 
 Vue.component('PDFPaginator', {
     template: `
-    <div class="pdf-paginator">
-        <template v-if="pageCount">
+    <template v-if="pageCount > 0">
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <a class="btn" @click.prevent.stop="prevPage">
+                <i class="fa fa-minus" aria-hidden="true"></i>
+            </a>
+        </div>
         <input
             :value="value"
             @input="input"
             min="1"
             :max="pageCount"
             type="number"
-            /> / <span>{{ pageCount }}</span>
-        </template>
-    <input v-else type="number" />
-  </div>
+            class="form-control page-input"
+            />
+        <div class="input-group-append">
+            <div class="input-group-text page-count" style="margin: 10px 0; padding: 0 10px; font-size: .875rem;">/ <span>{{ pageCount }}</span></div>
+        </div>
+
+        <div class="input-group-append">
+            <a class="btn"  @click.prevent.stop="nextPage">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </a>
+        </div>
+
+    </div>
+    </template>
+      <input v-else type="number" class="form-control" />
 `,
     props: {
         value: Number,
@@ -404,6 +372,16 @@ Vue.component('PDFPaginator', {
     methods: {
         input(event) {
             this.$emit('input', parseInt(event.target.value, 10));
+        },
+        prevPage() {
+            if (this.value > 1)
+                this.value--;
+            this.$emit('input', this.value);
+        },
+        nextPage() {
+            if (this.value < this.pageCount)
+                this.value++;
+            this.$emit('input', this.value);
         },
     },
     watch: {
@@ -834,7 +812,7 @@ Vue.component('PDFThumbnail', {
       v-else
       class="placeholder box-shadow"
       >
-      <div class="content">
+      <div>
         Loading
       </div>
     </div>
