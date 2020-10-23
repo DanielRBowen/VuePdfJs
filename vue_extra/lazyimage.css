@@ -1,0 +1,43 @@
+﻿.lazyimage__lightbox {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, .8);
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1021;
+}
+
+.lazyimage_lightbox__close {
+	position: fixed;
+	right: 0;
+	top: 0;
+	padding: 1rem;
+	font-size: 1.5rem;
+	cursor: pointer;
+	color: #fff;
+	width: 4rem;
+	height: 4rem;
+}
+
+.lazyimage__element {
+	display: flex;
+	width: 100%;
+	height: auto;
+}
+
+.lazyimage_lightbox__image {
+	flex: 1;
+}
+
+	.lazyimage_lightbox__image img {
+		width: auto;
+		height: auto !important;
+		border-radius: unset;
+		padding: unset;
+		background-color: unset;
+		border: unset; 
+	}

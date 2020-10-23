@@ -40,11 +40,11 @@
 
 /*
  * .detailed-image {
-	z-index: 2100;
-	position: absolute;
-	top: -20px;
-	left: -35px;
-	cursor: pointer;
+    z-index: 2100;
+    position: relative;
+    top: -250px;
+    left: 0px;
+    cursor: pointer;
 }
  */
 
@@ -52,14 +52,23 @@
 //https://css-tricks.com/lazy-loading-images-with-vue-js-directives-and-intersection-observer/
 Vue.component("lazyimage", {
     template: `
-<div>
-    <figure v-lazyload style="cursor: pointer;">
-        <img :data-url="source" alt="…" v-on:click="toggleDetailed">
-    </figure>
-    <figure v-lazyload v-if="isDetailedDisplayed" class="detailed-image" style="z-index: 2100; position: absolute; top: -20px; left: -35px; cursor: pointer;">
-        <img :data-url="detailedSource" alt="…" v-on:click="toggleDetailed">
-    </figure>
-</div>
+	<div>
+		<figure v-lazyload style="cursor: pointer;">
+			<img :data-url="source" alt="…" v-on:click="openDetailed" :class="thumbnailClass">
+		</figure>
+
+		<div class="lazyimage__lightbox" v-if="isDetailedDisplayed === true">
+			<div class="lazyimage_lightbox__close" v-on:click="closeDetailed">
+				<slot name="icon-close">&times;</slot>
+			</div>
+			<div class="lazyimage__element">
+
+				<div v-lazyload v-if="isDetailedDisplayed" class="lazyimage_lightbox__image" v-on:click="closeDetailed">
+					<img :data-url="detailedSource" alt="…">
+				</div>
+			</div>
+		</div>
+	</div>
 `,
     props: {
         source: {
@@ -74,6 +83,11 @@ Vue.component("lazyimage", {
             type: String,
             required: false,
             default: "…"
+        },
+        thumbnailClass: {
+            type: String,
+            required: false,
+            default: "test"
         }
     },
     data() {
@@ -82,6 +96,17 @@ Vue.component("lazyimage", {
         };
     },
     methods: {
+        openDetailed() {
+            if (typeof this.detailedSource !== 'undefined' && this.detailedSource !== null) {
+                this.isDetailedDisplayed = true;
+                return;
+            } else {
+                this.isDetailedDisplayed = false;
+            }
+        },
+        closeDetailed() {
+            this.isDetailedDisplayed = false;
+        },
         toggleDetailed() {
             if (typeof this.detailedSource !== 'undefined' && this.detailedSource !== null) {
                 if (this.isDetailedDisplayed === true) {
